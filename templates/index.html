@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="{{ url_for('static', filename='image/aura_logo.png') }}"  type="image/png">
+  <title>Aura Institute & Technology — Apply for Jobs</title>
+  <style>
+    :root{--accent:#0b6efd;--muted:#6b7280}
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;margin:0;color:#111;background:#f7fafc}
+    header{background:white;padding:18px 20px;box-shadow:0 1px 4px rgba(12,15,20,0.06);display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand h1{font-size:18px;margin:0}
+    main{max-width:1100px;margin:28px auto;padding:0 18px}
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:20px}
+    .card{background:white;padding:16px;border-radius:12px;box-shadow:0 6px 20px rgba(12,15,20,0.04)}
+    .job{padding:12px;border-radius:10px;border:1px solid #eef2f7;margin-bottom:12px;cursor:pointer}
+    .job h3{margin:0 0 6px 0}
+    .muted{color:var(--muted);font-size:13px}
+    .filters{display:flex;gap:8px;margin-bottom:10px}
+    .btn{background:var(--accent);color:white;padding:8px 12px;border-radius:8px;border:none;cursor:pointer}
+    .outline{background:transparent;border:1px solid #e6eefb;color:var(--accent)}
+    label{font-size:13px;color:#374151}
+    input[type='text'],input[type='email'],input[type='file'],textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eef3}
+    textarea{min-height:110px}
+    footer{max-width:1100px;margin:20px auto;padding:12px 18px;color:var(--muted);font-size:13px}
+    @media(max-width:900px){.grid{grid-template-columns:1fr}.sidebar{order:2}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="24" height="24" rx="6" fill="#0b6efd"/>
+        <path d="M7 12h10M7 8h10M7 16h6" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h1>JobApply </h1>
+    </div>
+  </header>
+
+  <main>
+    <div class="grid">
+      <section>
+        <div class="card">
+          <h2>Open Positions</h2>
+          <div id="jobsList"></div>
+        </div>
+      </section>
+
+      <aside class="sidebar">
+        <div class="card">
+          <h3>Application</h3>
+          <div id="selectedJob" class="muted">Select a job to apply</div>
+
+          <form id="applyForm" style="margin-top:10px" enctype="multipart/form-data">
+            <input type="hidden" id="jobId" name="jobId">
+            <div style="margin-bottom:8px">
+              <label>Name</label>
+              <input type="text" id="appName" name="name" placeholder="Your full name" required>
+            </div>
+            <div style="margin-bottom:8px">
+              <label>Email</label>
+              <input type="email" id="appEmail" name="email" placeholder="example@mail.com" required>
+            </div>
+            <div style="margin-bottom:8px">
+              <label>Phone</label>
+              <input type="text" id="appPhone" name="phone" placeholder="Phone number" required>
+            </div>
+            <div style="margin-bottom:8px">
+              <label>Resume (PDF)</label>
+              <input type="file" id="appResume" name="resume" accept="application/pdf" required>
+            </div>
+            <div style="margin-bottom:10px">
+              <label>Cover note</label>
+              <textarea id="appCover" name="cover" placeholder="Short cover letter"></textarea>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button type="submit" class="btn">Submit Application</button>
+              <button type="button" class="outline" id="clearForm">Clear</button>
+            </div>
+          </form>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    Built with ❤️ Flask + HTML — JobApply with Email.
+  </footer>
+
+  <script>
+    const jobs = [
+      {id:1,title:'Frontend Developer',company:'Aura Institute',location:'Chennai',type:'Full-time',desc:'Build responsive UIs using HTML, CSS, JS.'},
+      {id:2,title:'Python Developer',company:'TechUp',location:'Bengaluru',type:'Full-time',desc:'Work on backend services and automation.'},
+      {id:3,title:'Graphic Designer (Intern)',company:'CreativeCo',location:'Remote',type:'Internship',desc:'Design social media creatives and banners.'},
+      {id:1,title:'Frontend Developer',company:'Aura Institute',location:'Chennai',type:'Full-time',desc:'Build responsive UIs using HTML, CSS, JS.'},
+      {id:2,title:'Python Developer',company:'TechUp',location:'Bengaluru',type:'Full-time',desc:'Work on backend services and automation.'},
+      {id:3,title:'Graphic Designer (Intern)',company:'CreativeCo',location:'Remote',type:'Internship',desc:'Design social media creatives and banners.'}
+      
+    ];
+
+    const jobsList = document.getElementById('jobsList');
+    const selectedJob = document.getElementById('selectedJob');
+    const jobIdInput = document.getElementById('jobId');
+
+    function renderJobs(){
+      jobsList.innerHTML = '';
+      jobs.forEach(j=>{
+        const el = document.createElement('div'); el.className='job';
+        el.innerHTML = `<h3>${j.title}</h3>
+        <div class='muted'>${j.company} • ${j.location} • ${j.type}</div>
+        <p style='margin:8px 0 0 0;color:#374151'>${j.desc}</p>
+        <div style='margin-top:8px'>
+          <button class='btn applyBtn' data-id='${j.id}'>Apply</button>
+        </div>`;
+        jobsList.appendChild(el);
+      });
+    }
+
+    jobsList.addEventListener('click',(e)=>{
+      if(e.target.matches('.applyBtn')){
+        const id=Number(e.target.dataset.id);
+        const job=jobs.find(x=>x.id===id);
+        selectedJob.textContent=job.title+' — '+job.company;
+        jobIdInput.value=id;
+        window.scrollTo({top:0,behavior:'smooth'});
+      }
+    });
+
+    document.getElementById('applyForm').addEventListener('submit',async(ev)=>{
+      ev.preventDefault();
+      const formData=new FormData(ev.target);
+      const res=await fetch('/apply',{method:'POST',body:formData});
+      const text=await res.text();
+      alert(text);
+      ev.target.reset();
+      selectedJob.textContent='Select a job to apply';
+    });
+
+    document.getElementById('clearForm').addEventListener('click',()=>{
+      document.getElementById('applyForm').reset();
+      selectedJob.textContent='Select a job to apply';
+    });
+
+    renderJobs();
+  </script>
+</body>
+</html>
