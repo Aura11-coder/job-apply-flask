@@ -11,6 +11,11 @@ CORS(app)
 EMAIL_USER = os.getenv("EMAIL_USER")
 EMAIL_PASS = os.getenv("EMAIL_PASS")
 
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
 
 @app.route("/apply", methods=["POST"])
 def apply():
