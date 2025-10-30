@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request
 from flask_cors import CORS
 import smtplib
@@ -7,8 +8,10 @@ app = Flask(__name__)
 CORS(app)
 
 # 🔹 Replace these with your Gmail credentials
-YOUR_EMAIL = "mogappairgtec@gmail.com"
-YOUR_APP_PASSWORD = "henk yigv krhx mpxz"  # from https://myaccount.google.com/apppasswords
+import os
+EMAIL_USER = os.getenv("EMAIL_USER")
+EMAIL_PASS = os.getenv("EMAIL_PASS")
+ # from https://myaccount.google.com/apppasswords
 
 
 @app.route("/")
@@ -24,11 +27,12 @@ def apply():
     cover = request.form.get("cover")
     job_id = request.form.get("jobId")
     resume = request.files["resume"]
-
+   
+    smtp.login(EMAIL_USER, EMAIL_PASS)
     msg = EmailMessage()
     msg["Subject"] = f"New Job Application — {name}"
-    msg["From"] = YOUR_EMAIL
-    msg["To"] = YOUR_EMAIL
+    msg["From"] = EMAIL_USER
+    msg["To"] = EMAIL_USER
 
     msg.set_content(f"""
 New Job Application Received
@@ -52,7 +56,7 @@ New Job Application Received
 
     try:
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
-            smtp.login(YOUR_EMAIL, YOUR_APP_PASSWORD)
+            smtp.login(EMAIL_USER, EMAIL_PASS)
             smtp.send_message(msg)
         return "✅ Application sent successfully! Check your email."
     except Exception as e:
@@ -62,3 +66,5 @@ New Job Application Received
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+ 
