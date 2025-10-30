@@ -12,11 +12,6 @@ EMAIL_USER = os.getenv("EMAIL_USER")
 EMAIL_PASS = os.getenv("EMAIL_PASS")
 
 
-@app.route("/")
-def home():
-    return render_template("index.html")
-
-
 @app.route("/apply", methods=["POST"])
 def apply():
     try:
@@ -27,14 +22,12 @@ def apply():
         job_id = request.form.get("jobId")
         resume = request.files.get("resume")
 
-        # 🔹 Save uploaded resume to /tmp before attaching
-        filepath = None
-        if resume:
-            filename = resume.filename
-            filepath = os.path.join("/tmp", filename)
-            resume.save(filepath)
+        if not resume:
+            return "❌ Please upload your resume!"
 
-        # 🔹 Create email
+        filepath = os.path.join("/tmp", resume.filename)
+        resume.save(filepath)
+
         msg = EmailMessage()
         msg["Subject"] = f"New Job Application — {name}"
         msg["From"] = EMAIL_USER
@@ -52,27 +45,27 @@ New Job Application Received
 {cover}
 """)
 
-        # 🔹 Attach the saved resume file (if available)
-        if filepath and os.path.exists(filepath):
-            with open(filepath, "rb") as f:
-                file_data = f.read()
-                msg.add_attachment(
-                    file_data,
-                    maintype="application",
-                    subtype="octet-stream",
-                    filename=os.path.basename(filepath)
-                )
+        with open(filepath, "rb") as f:
+            msg.add_attachment(
+                f.read(),
+                maintype="application",
+                subtype="octet-stream",
+                filename=resume.filename
+            )
 
-        # 🔹 Send mail via Gmail SMTP
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+        print("🔹 Connecting to Brevo SMTP server...")
+        with smtplib.SMTP("smtp-relay.brevo.com", 587, timeout=20) as smtp:
+            smtp.starttls()
             smtp.login(EMAIL_USER, EMAIL_PASS)
             smtp.send_message(msg)
 
+        print("✅ Email sent successfully!")
+        os.remove(filepath)
         return "✅ Application sent successfully! Check your email."
 
-    except Exception as e:
-        print("Email send error:", e)
-        return f"❌ Error sending email: {e}"
+    except Exception as e:   # 👈 this closes the try properly
+        print("❌ Error:", e)
+        return f"❌ Error sending application: {e}"
 
 
 if __name__ == "__main__":
