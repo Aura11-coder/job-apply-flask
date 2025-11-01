@@ -8,13 +8,19 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-app = Flask(__name__)
-CORS(app)
-
-# 🔹 Environment variables
+# 🔹 Environment variables (must be defined after load_dotenv)
 EMAIL_USER = os.getenv("EMAIL_USER")  # Brevo sender email (must be verified)
 EMAIL_PASS = os.getenv("EMAIL_PASS")  # Brevo API key
 HR_EMAIL = os.getenv("HR_EMAIL", EMAIL_USER)  # Default to sender if not set
+
+# 🔹 Debug check
+print("Loaded EMAIL_USER:", EMAIL_USER)
+print("Loaded EMAIL_PASS:", EMAIL_PASS[:8], "********")
+print("Loaded HR_EMAIL:", HR_EMAIL)
+
+# Flask setup
+app = Flask(__name__)
+CORS(app)
 
 @app.route("/")
 def index():
@@ -54,7 +60,7 @@ def apply():
         # 🔹 Email content to HR
         data = {
             "sender": {"name": "Job Application Portal", "email": EMAIL_USER},
-            "to": [{"email": HR_EMAIL}],  # ✅ Sends to HR email (or sender if HR_EMAIL missing)
+            "to": [{"email": HR_EMAIL}],
             "subject": f"New Job Application — {name}",
             "htmlContent": f"""
                 <h3>New Job Application Received</h3>
