@@ -5,15 +5,13 @@ from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
 
-# Load environment variables
+# 🔹 Load environment variables
 load_dotenv()
 
-# 🔹 Environment variables (must be defined after load_dotenv)
-EMAIL_USER = os.getenv("EMAIL_USER")  # Brevo sender email (must be verified)
-EMAIL_PASS = os.getenv("EMAIL_PASS")  # Brevo API key
-HR_EMAIL = os.getenv("HR_EMAIL", EMAIL_USER)  # Default to sender if not set
-
-
+# 🔹 Environment variables (must match Render keys)
+EMAIL_USER = os.getenv("EMAIL_USER")              # Verified Brevo sender email
+BREVO_API_KEY = os.getenv("BREVO_API_KEY")        # Brevo API key
+HR_EMAIL = os.getenv("HR_EMAIL", EMAIL_USER)      # Default to sender if not set
 
 # Flask setup
 app = Flask(__name__)
@@ -22,6 +20,7 @@ CORS(app)
 @app.route("/")
 def index():
     return render_template("index.html")
+
 
 @app.route("/apply", methods=["POST"])
 def apply():
@@ -50,7 +49,7 @@ def apply():
         url = "https://api.brevo.com/v3/smtp/email"
         headers = {
             "accept": "application/json",
-            "api-key": EMAIL_PASS,
+            "api-key": BREVO_API_KEY,     # ✅ Correct header key
             "content-type": "application/json",
         }
 
@@ -85,7 +84,7 @@ def apply():
 
         print("✅ Email with attachment sent successfully!")
 
-        # 🔹 Optional: Send confirmation email to applicant
+        # 🔹 Confirmation email to applicant
         confirm_data = {
             "sender": {"name": "Aura Institute HR", "email": EMAIL_USER},
             "to": [{"email": email}],
@@ -99,6 +98,7 @@ def apply():
             """
         }
 
+        # Send confirmation email
         requests.post(url, headers=headers, json=confirm_data)
 
         return jsonify({"status": "success", "message": "✅ Application sent successfully!"})
