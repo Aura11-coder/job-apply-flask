@@ -13,10 +13,7 @@ EMAIL_USER = os.getenv("EMAIL_USER")  # Brevo sender email (must be verified)
 EMAIL_PASS = os.getenv("EMAIL_PASS")  # Brevo API key
 HR_EMAIL = os.getenv("HR_EMAIL", EMAIL_USER)  # Default to sender if not set
 
-# 🔹 Debug check
-print("Loaded EMAIL_USER:", EMAIL_USER)
-print("Loaded EMAIL_PASS:", EMAIL_PASS[:8], "********")
-print("Loaded HR_EMAIL:", HR_EMAIL)
+
 
 # Flask setup
 app = Flask(__name__)
