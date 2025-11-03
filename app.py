@@ -16,9 +16,10 @@ CORS(app)
 
 # 🔹 Dummy job data
 jobs = [
-    {"id": 1, "title": "Frontend Developer", "company": "Aura Institute", "location": "Chennai"},
-    {"id": 2, "title": "Python Developer", "company": "TechUp", "location": "Bengaluru"},
-    {"id": 3, "title": "Graphic Designer (Intern)", "company": "CreativeCo", "location": "Remote"},
+    {"id": 1, "title": "Frontend Developer", "company": "Aura Institute", "location": "Chennai", "eligible": "Any degree / HTML, CSS, JS knowledge"},
+
+    {"id": 2, "title": "Python Developer", "company": "TechUp", "location": "Bengaluru", "eligible": "Any degree / HTML, CSS, JS knowledge"},
+    {"id": 3, "title": "Graphic Designer (Intern)", "company": "CreativeCo", "location": "Remote", "eligible": "Any degree / HTML, CSS, JS knowledge"},
 ]
 
 @app.route("/")
@@ -82,14 +83,14 @@ def apply():
 
         # Send confirmation email to applicant
         confirm_data = {
-            "sender": {"name": "Aura Institute HR", "email": EMAIL_USER},
+            "sender": {"name": "ZobsZoom HR", "email": EMAIL_USER},
             "to": [{"email": email}],
             "subject": "Thank you for applying!",
             "htmlContent": f"""
                 <p>Dear {name},</p>
-                <p>Thank you for applying for the position at <b>Aura Institute & Technology</b>.</p>
+                <p>Thank you for applying for the position at <b>ZobsZoom</b>.</p>
                 <p>Our HR team will review your application and contact you shortly.</p>
-                <br><p>Best regards,<br>Aura HR Team</p>
+                <br><p>Best regards,<br>ZobsZoom HR Team</p>
             """
         }
         requests.post(url, headers=headers, json=confirm_data)
