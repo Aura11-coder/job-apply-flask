@@ -5,27 +5,36 @@ from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
 
-# 🔹 Load environment variables
 load_dotenv()
 
-# 🔹 Environment variables (must match Render keys)
-EMAIL_USER = os.getenv("EMAIL_USER")              # Verified Brevo sender email
-BREVO_API_KEY = os.getenv("BREVO_API_KEY")        # Brevo API key
-HR_EMAIL = os.getenv("HR_EMAIL", EMAIL_USER)      # Default to sender if not set
+EMAIL_USER = os.getenv("EMAIL_USER")
+BREVO_API_KEY = os.getenv("BREVO_API_KEY")
+HR_EMAIL = os.getenv("HR_EMAIL", EMAIL_USER)
 
-# Flask setup
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/")
-def index():
-    return render_template("index.html")
+# 🔹 Dummy job data
+jobs = [
+    {"id": 1, "title": "Frontend Developer", "company": "Aura Institute", "location": "Chennai"},
+    {"id": 2, "title": "Python Developer", "company": "TechUp", "location": "Bengaluru"},
+    {"id": 3, "title": "Graphic Designer (Intern)", "company": "CreativeCo", "location": "Remote"},
+]
 
+@app.route("/")
+def job_list():
+    return render_template("jobs.html", jobs=jobs)
+
+@app.route("/application/<int:job_id>")
+def application(job_id):
+    job = next((j for j in jobs if j["id"] == job_id), None)
+    if not job:
+        return "Job not found", 404
+    return render_template("apply.html", job=job)
 
 @app.route("/apply", methods=["POST"])
 def apply():
     try:
-        # 🔹 Get form fields
         name = request.form.get("name")
         email = request.form.get("email")
         phone = request.form.get("phone")
@@ -33,27 +42,22 @@ def apply():
         job_id = request.form.get("jobId")
         resume = request.files.get("resume")
 
-        # 🔹 Validation
         if not all([name, email, phone, resume]):
             return jsonify({"status": "error", "message": "❌ Please fill all required fields!"}), 400
 
-        # 🔹 Save uploaded file temporarily
         filepath = os.path.join("/tmp", resume.filename)
         resume.save(filepath)
 
-        # 🔹 Convert file to Base64 for Brevo attachment
         with open(filepath, "rb") as f:
             file_data = base64.b64encode(f.read()).decode()
 
-        # 🔹 Brevo API setup
         url = "https://api.brevo.com/v3/smtp/email"
         headers = {
             "accept": "application/json",
-            "api-key": BREVO_API_KEY,     # ✅ Correct header key
+            "api-key": BREVO_API_KEY,
             "content-type": "application/json",
         }
 
-        # 🔹 Email content to HR
         data = {
             "sender": {"name": "Job Application Portal", "email": EMAIL_USER},
             "to": [{"email": HR_EMAIL}],
@@ -66,15 +70,9 @@ def apply():
                 <p><b>Phone:</b> {phone}</p>
                 <p><b>Cover Letter:</b><br>{cover or "Not provided"}</p>
             """,
-            "attachment": [
-                {
-                    "name": resume.filename,
-                    "content": file_data
-                }
-            ]
+            "attachment": [{"name": resume.filename, "content": file_data}]
         }
 
-        # 🔹 Send email to HR
         response = requests.post(url, headers=headers, json=data)
         os.remove(filepath)
 
@@ -82,9 +80,7 @@ def apply():
             print("❌ Brevo API Error:", response.text)
             return jsonify({"status": "error", "message": "❌ Failed to send email via Brevo API."}), 500
 
-        print("✅ Email with attachment sent successfully!")
-
-        # 🔹 Confirmation email to applicant
+        # Send confirmation email to applicant
         confirm_data = {
             "sender": {"name": "Aura Institute HR", "email": EMAIL_USER},
             "to": [{"email": email}],
@@ -93,12 +89,9 @@ def apply():
                 <p>Dear {name},</p>
                 <p>Thank you for applying for the position at <b>Aura Institute & Technology</b>.</p>
                 <p>Our HR team will review your application and contact you shortly.</p>
-                <br>
-                <p>Best regards,<br>Aura HR Team</p>
+                <br><p>Best regards,<br>Aura HR Team</p>
             """
         }
-
-        # Send confirmation email
         requests.post(url, headers=headers, json=confirm_data)
 
         return jsonify({"status": "success", "message": "✅ Application sent successfully!"})

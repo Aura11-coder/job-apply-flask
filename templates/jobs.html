@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Job Listings - Aura Institute</title>
+  <link rel="icon" href="{{ url_for('static', filename='image/aura_logo.png') }}" type="image/png">
+  <style>
+    body{font-family:Inter,system-ui;background:#f7fafc;margin:0;color:#111}
+    header{background:white;padding:16px 20px;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+    main{max-width:1000px;margin:20px auto;padding:0 18px}
+    .card{background:white;padding:18px;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,0.05)}
+    .job{border:1px solid #e5e7eb;border-radius:10px;padding:12px;margin-bottom:10px}
+    .btn{background:#0b6efd;color:white;padding:8px 12px;border:none;border-radius:8px;cursor:pointer;text-decoration:none}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Open Positions — Aura Institute</h1>
+  </header>
+  <main>
+    <div class="card">
+      <h2>Available Jobs</h2>
+      {% for job in jobs %}
+        <div class="job">
+          <h3>{{ job.title }}</h3>
+          <p>{{ job.company }} • {{ job.location }}</p>
+          <a href="{{ url_for('application', job_id=job.id) }}" class="btn">Apply Now</a>
+        </div>
+      {% endfor %}
+    </div>
+  </main>
+</body>
+</html>

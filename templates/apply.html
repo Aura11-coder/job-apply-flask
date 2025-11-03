@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Apply for {{ job.title }}</title>
+  <link rel="icon" href="{{ url_for('static', filename='image/aura_logo.png') }}" type="image/png">
+  <style>
+    body{font-family:Inter,system-ui;background:#f7fafc;margin:0;color:#111}
+    header{background:white;padding:16px 20px;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+    main{max-width:700px;margin:20px auto;padding:0 18px}
+    .card{background:white;padding:18px;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,0.05)}
+    input,textarea{width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:8px;margin-top:5px;margin-bottom:10px}
+    .btn{background:#0b6efd;color:white;padding:8px 12px;border:none;border-radius:8px;cursor:pointer}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Apply for {{ job.title }} — {{ job.company }}</h1>
+  </header>
+  <main>
+    <div class="card">
+      <form id="applyForm" method="POST" action="/apply" enctype="multipart/form-data">
+        <input type="hidden" name="jobId" value="{{ job.id }}">
+        <label>Name</label>
+        <input type="text" name="name" required>
+        <label>Email</label>
+        <input type="email" name="email" required>
+        <label>Phone</label>
+        <input type="text" name="phone" required>
+        <label>Resume (PDF)</label>
+        <input type="file" name="resume" accept="application/pdf" required>
+        <label>Cover Letter</label>
+        <textarea name="cover"></textarea>
+        <button type="submit" class="btn">Submit Application</button>
+      </form>
+    </div>
+  </main>
+  <script>
+    document.getElementById("applyForm").addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      const formData = new FormData(ev.target);
+      const res = await fetch("/apply", { method: "POST", body: formData });
+      const data = await res.json();
+      alert(data.message);
+      if (data.status === "success") ev.target.reset();
+    });
+  </script>
+</body>
+</html>
