@@ -25,7 +25,9 @@
         <div class="job">
           <h3>{{ job.title }}</h3>
           <p>{{ job.company }} • {{ job.location }}</p>
-           <p><b>Eligible:</b> {{ job.eligible }}</p>
+          <p><b>Eligible:</b> {{ job.eligible }}</p>
+          <p><b>Experience:</b> {{ job.experience }}</p>
+
           <a href="{{ url_for('application', job_id=job.id) }}" class="btn">Apply Now</a>
         </div>
       {% endfor %}
@@ -33,3 +35,4 @@
   </main>
 </body>
 </html>
+

@@ -16,10 +16,12 @@ CORS(app)
 
 # 🔹 Dummy job data
 jobs = [
-    {"id": 1, "title": "Frontend Developer", "company": "Aura Institute", "location": "Chennai", "eligible": "Any degree / HTML, CSS, JS knowledge"},
+    {"id": 1, "title": "Data Engineer", "company": "None", "location": "Bangalore/Puna/Kolkata/Hyderabad", "eligible": "Any degree/Python or Scala / SQL,and data pipeline","experience":"1.5 to 3.5"},
 
-    {"id": 2, "title": "Python Developer", "company": "TechUp", "location": "Bengaluru", "eligible": "Any degree / HTML, CSS, JS knowledge"},
-    {"id": 3, "title": "Graphic Designer (Intern)", "company": "CreativeCo", "location": "Remote", "eligible": "Any degree / HTML, CSS, JS knowledge"},
+    {"id": 2, "title": "Analyst - Accounts Payable", "company": "flex", "location": "Chennai", "eligible": "B.com/BBA/M.com/MBA","experience":"Freshers"},
+    {"id": 3, "title": "Python Developer", "company": "rccenterprises", "location": "Perungudi", "eligible": "Creating the back-end elements/python","experience":"Freshers"},
+    {"id": 4, "title": "Accountant Lady", "company": "Headphonezone pvt ltd", "location": "Chennai", "eligible": "Tally Prime/Excel/Google Sheets","experience":"Freshers"}
+
 ]
 
 @app.route("/")
