@@ -20,7 +20,12 @@ jobs = [
 
     {"id": 2, "title": "Analyst - Accounts Payable", "company": "flex", "location": "Chennai", "eligible": "B.com/BBA/M.com/MBA","experience":"Freshers"},
     {"id": 3, "title": "Python Developer", "company": "rccenterprises", "location": "Perungudi", "eligible": "Creating the back-end elements/python","experience":"Freshers"},
-    {"id": 4, "title": "Accountant Lady", "company": "Headphonezone pvt ltd", "location": "Chennai", "eligible": "Tally Prime/Excel/Google Sheets","experience":"Freshers"}
+    {"id": 4, "title": "Accountant Lady", "company": "Headphonezone pvt ltd", "location": "Chennai", "eligible": "Tally Prime/Excel/Google Sheets","experience":"Freshers"},
+    {"id": 5, "title": "Senior Analyst-procurement", "company": "FLEX", "location": "Chennai", "eligible": "Good Communication& SAP","experience":"1-2 Years"},
+    {"id": 6, "title": "Accountant and Office Administration", "company": "Sambavi Meditek", "location": "Medavakkam", "eligible": "Tally Prime with GST","experience":"2 years experience "},
+    {"id": 7, "title": "Java Developer", "company": "Hyeongshin Automotive Industry", "location": "Chennai", "eligible": "java ,Spring framework, Spring Boot,REST","experience":"Freshers"}
+    
+
 
 ]
 
