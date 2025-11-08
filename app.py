@@ -23,7 +23,11 @@ jobs = [
     {"id": 4, "title": "Accountant Lady", "company": "Headphonezone pvt ltd", "location": "Chennai", "eligible": "Tally Prime/Excel/Google Sheets","experience":"Freshers"},
     {"id": 5, "title": "Senior Analyst-procurement", "company": "FLEX", "location": "Chennai", "eligible": "Good Communication& SAP","experience":"1-2 Years"},
     {"id": 6, "title": "Accountant and Office Administration", "company": "Sambavi Meditek", "location": "Medavakkam", "eligible": "Tally Prime with GST","experience":"2 years experience "},
-    {"id": 7, "title": "Java Developer", "company": "Hyeongshin Automotive Industry", "location": "Chennai", "eligible": "java ,Spring framework, Spring Boot,REST","experience":"Freshers"}
+    {"id": 7, "title": "Java Developer", "company": "Hyeongshin Automotive Industry", "location": "Chennai", "eligible": "java ,Spring framework, Spring Boot,REST","experience":"Freshers"},
+    {"id": 8, "title": "Software Developer", "company": "Aandavar software Solutions", "location": "Perambur, Chennai", "eligible": "Unit testing,Scrum","experience":"0-1years"},
+    {"id": 9, "title": "Software Developer", "company": "Astrotechx", "location": "Kolathur, Chennai", "eligible": "Software development ,Java,SQL","experience":"2 years of experience"},
+    {"id": 10, "title": "Graphic Designer", "company": "PixelStudios", "location": "Anna Nagar West,Chennai", "eligible": "Typography,Graphic design,Adobe Photoshop","experience":"2 years"}
+
     
 
 
