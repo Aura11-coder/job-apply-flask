@@ -6,20 +6,78 @@
   <title>Job Listings - Aura Institute</title>
   <link rel="icon" href="{{ url_for('static', filename='image/aura_logo.png') }}" type="image/png">
   <style>
-    body{font-family:Inter,system-ui;background:#f7fafc;margin:0;color:#111}
-    header{background:white;padding:16px 20px;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
-    main{max-width:1000px;margin:20px auto;padding:0 18px}
-    .card{background:white;padding:18px;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,0.05)}
-    .job{border:1px solid #e5e7eb;border-radius:10px;padding:12px;margin-bottom:10px}
-    .btn{background:#0b6efd;color:white;padding:8px 12px;border:none;border-radius:8px;cursor:pointer;text-decoration:none}
+    body {
+      font-family: Inter, system-ui;
+      background: #f7fafc;
+      margin: 0;
+      color: #111;
+    }
+    header {
+      background: white;
+      padding: 16px 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      font-size: 20px;
+      margin: 0;
+    }
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #0b6efd;
+      font-weight: 500;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 0 18px;
+    }
+    .card {
+      background: white;
+      padding: 18px;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    }
+    .job {
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+    .btn {
+      background: #0b6efd;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn:hover {
+      background: #0956c4;
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>Open Positions —ZobsZoom</h1>
+    <h1>Open Positions — ZobsZoom</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="#jobs">Job Site</a>
+    </nav>
   </header>
+
   <main>
-    <div class="card">
+    <div class="card" id="jobs">
       <h2>Available Jobs</h2>
       {% for job in jobs %}
         <div class="job">
@@ -35,4 +93,3 @@
   </main>
 </body>
 </html>
-
