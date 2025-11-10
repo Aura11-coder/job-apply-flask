@@ -16,17 +16,32 @@ CORS(app)
 
 # 🔹 Dummy job data
 jobs = [
-    {"id": 1, "title": "Data Engineer", "company": "None", "location": "Bangalore/Puna/Kolkata/Hyderabad", "eligible": "Any degree/Python or Scala / SQL,and data pipeline","experience":"1.5 to 3.5"},
+    {"id": 1, "title": "Python Developer", "company": "Adhoc softwares Pvt.Ltd", "location": "Coimbatore", "eligible": "any degree ","experience":"none"},
+    {"id": 2, "title": "Flutter Developer", "company": "Adhoc softwares Pvt.Ltd", "location": "Coimbatore", "eligible": "any degree ","experience":"none"},
+    {"id": 3, "title": ".NET Developer", "company": "Adhoc softwares Pvt.Ltd", "location": "Coimbatore", "eligible": "any degree ","experience":"none"},
+    {"id": 4, "title": "DevOps Engineer", "company": "Adhoc softwares Pvt.Ltd", "location": "Coimbatore", "eligible": "any degree ","experience":"none"},
+    {"id": 5, "title": "React js & Next js", "company": "Adhoc softwares Pvt.Ltd", "location": "Coimbatore", "eligible": "any degree ","experience":"none"},
+    {"id": 6, "title": "Quality Analyst", "company": "Adhoc softwares Pvt.Ltd", "location": "Coimbatore", "eligible": "any degree ","experience":"none"},
+    {"id": 7, "title": "Digital Marketing Executive", "company": "Adhoc softwares Pvt.Ltd", "location": "Coimbatore", "eligible": "any degree ","experience":"none"},
+    {"id": 8, "title": "Sales Manager", "company": "Adhoc softwares Pvt.Ltd", "location": "Coimbatore", "eligible": "any degree ","experience":"none"},
+    {"id": 9, "title": "Businees Development Executive", "company": "Adhoc softwares Pvt.Ltd", "location": "Coimbatore", "eligible": "any degree ","experience":"none"},
+    {"id": 10, "title": "Accountant", "company": "Adhoc softwares Pvt.Ltd", "location": "Coimbatore", "eligible": "any degree ","experience":"none"},
+    {"id": 11, "title": "Customer Support Executive", "company": "Adhoc softwares Pvt.Ltd", "location": "Coimbatore", "eligible": "any degree ","experience":"none"},
+    {"id": 12, "title": "tele Caller", "company": "Adhoc softwares Pvt.Ltd", "location": "Coimbatore", "eligible": "any degree ","experience":"none"},
+    
 
-    {"id": 2, "title": "Analyst - Accounts Payable", "company": "flex", "location": "Chennai", "eligible": "B.com/BBA/M.com/MBA","experience":"Freshers"},
-    {"id": 3, "title": "Python Developer", "company": "rccenterprises", "location": "Perungudi", "eligible": "Creating the back-end elements/python","experience":"Freshers"},
-    {"id": 4, "title": "Accountant Lady", "company": "Headphonezone pvt ltd", "location": "Chennai", "eligible": "Tally Prime/Excel/Google Sheets","experience":"Freshers"},
-    {"id": 5, "title": "Senior Analyst-procurement", "company": "FLEX", "location": "Chennai", "eligible": "Good Communication& SAP","experience":"1-2 Years"},
-    {"id": 6, "title": "Accountant and Office Administration", "company": "Sambavi Meditek", "location": "Medavakkam", "eligible": "Tally Prime with GST","experience":"2 years experience "},
-    {"id": 7, "title": "Java Developer", "company": "Hyeongshin Automotive Industry", "location": "Chennai", "eligible": "java ,Spring framework, Spring Boot,REST","experience":"Freshers"},
-    {"id": 8, "title": "Software Developer", "company": "Aandavar software Solutions", "location": "Perambur, Chennai", "eligible": "Unit testing,Scrum","experience":"0-1years"},
-    {"id": 9, "title": "Software Developer", "company": "Astrotechx", "location": "Kolathur, Chennai", "eligible": "Software development ,Java,SQL","experience":"2 years of experience"},
-    {"id": 10, "title": "Graphic Designer", "company": "PixelStudios", "location": "Anna Nagar West,Chennai", "eligible": "Typography,Graphic design,Adobe Photoshop","experience":"2 years"}
+
+    {"id": 13, "title": "Data Engineer", "company": "None", "location": "Bangalore/Puna/Kolkata/Hyderabad", "eligible": "Any degree/Python or Scala / SQL,and data pipeline","experience":"1.5 to 3.5"},
+
+    {"id": 14, "title": "Analyst - Accounts Payable", "company": "flex", "location": "Chennai", "eligible": "B.com/BBA/M.com/MBA","experience":"Freshers"},
+    {"id": 15, "title": "Python Developer", "company": "rccenterprises", "location": "Perungudi", "eligible": "Creating the back-end elements/python","experience":"Freshers"},
+    {"id": 16, "title": "Accountant Lady", "company": "Headphonezone pvt ltd", "location": "Chennai", "eligible": "Tally Prime/Excel/Google Sheets","experience":"Freshers"},
+    {"id": 17, "title": "Senior Analyst-procurement", "company": "FLEX", "location": "Chennai", "eligible": "Good Communication& SAP","experience":"1-2 Years"},
+    {"id": 18, "title": "Accountant and Office Administration", "company": "Sambavi Meditek", "location": "Medavakkam", "eligible": "Tally Prime with GST","experience":"2 years experience "},
+    {"id": 19, "title": "Java Developer", "company": "Hyeongshin Automotive Industry", "location": "Chennai", "eligible": "java ,Spring framework, Spring Boot,REST","experience":"Freshers"},
+    {"id": 20, "title": "Software Developer", "company": "Aandavar software Solutions", "location": "Perambur, Chennai", "eligible": "Unit testing,Scrum","experience":"0-1years"},
+    {"id": 21, "title": "Software Developer", "company": "Astrotechx", "location": "Kolathur, Chennai", "eligible": "Software development ,Java,SQL","experience":"2 years of experience"},
+    {"id": 22, "title": "Graphic Designer", "company": "PixelStudios", "location": "Anna Nagar West,Chennai", "eligible": "Typography,Graphic design,Adobe Photoshop","experience":"2 years"},
 
     
 
